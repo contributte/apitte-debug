@@ -1,6 +1,6 @@
 <?php
 
-namespace Apitte\Core\Tracy\BlueScreen;
+namespace Apitte\Debug\Tracy\BlueScreen;
 
 use Apitte\Core\Exception\Runtime\ApiException;
 use Tracy\BlueScreen;

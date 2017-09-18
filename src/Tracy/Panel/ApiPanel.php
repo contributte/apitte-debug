@@ -1,6 +1,6 @@
 <?php
 
-namespace Apitte\Core\Tracy\Panel\ApiPanel;
+namespace Apitte\Debug\Tracy\Panel;
 
 use Apitte\Core\Schema\ApiSchema;
 use Tracy\IBarPanel;

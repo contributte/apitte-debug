@@ -1,10 +1,11 @@
 <?php
 
-namespace Apitte\Core\Middlewares\Transformer;
+namespace Apitte\Debug\Negotiation\Transformer;
 
 use Apitte\Core\Exception\Logical\InvalidStateException;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
+use Apitte\Negotiation\Transformer\ITransformer;
 use Tracy\Debugger;
 use function GuzzleHttp\Psr7\stream_for;
 
