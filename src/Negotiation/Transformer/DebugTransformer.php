@@ -50,7 +50,7 @@ class DebugTransformer implements ITransformer
 	/**
 	 * @param ServerRequestInterface $request
 	 * @param array $options
-	 * @return void
+	 * @return null
 	 */
 	public function decode(ServerRequestInterface $request, array $options = [])
 	{

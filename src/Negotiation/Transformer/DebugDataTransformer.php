@@ -55,7 +55,7 @@ class DebugDataTransformer extends AbstractTransformer
 	/**
 	 * @param ServerRequestInterface $request
 	 * @param array $options
-	 * @return void
+	 * @return null
 	 */
 	public function decode(ServerRequestInterface $request, array $options = [])
 	{
