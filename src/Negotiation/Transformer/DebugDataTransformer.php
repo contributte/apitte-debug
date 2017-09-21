@@ -2,13 +2,14 @@
 
 namespace Apitte\Debug\Negotiation\Transformer;
 
-use Apitte\Negotiation\Transformer\ITransformer;
+use Apitte\Negotiation\Http\ArrayStream;
+use Apitte\Negotiation\Transformer\AbstractTransformer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tracy\Debugger;
 use function GuzzleHttp\Psr7\stream_for;
 
-class DebugTransformer implements ITransformer
+class DebugDataTransformer extends AbstractTransformer
 {
 
 	/** @var int */
@@ -34,15 +35,19 @@ class DebugTransformer implements ITransformer
 	 */
 	public function encode(ResponseInterface $response, array $options = [])
 	{
+		if (!$this->acceptResponse($response)) return $response;
+
 		Debugger::$maxDepth = $this->maxDepth;
 		Debugger::$maxLength = $this->maxLength;
 
 		$tmp = clone $response;
+		/** @var ArrayStream $body */
+		$body = $tmp->getBody();
 
 		$response = $response->withHeader('Content-Type', 'text/html')
 			->withBody(stream_for());
 
-		$response->getBody()->write(Debugger::dump($tmp, TRUE));
+		$response->getBody()->write(Debugger::dump($body->getData(), TRUE));
 
 		return $response;
 	}

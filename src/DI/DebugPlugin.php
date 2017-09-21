@@ -2,10 +2,13 @@
 
 namespace Apitte\Debug\DI;
 
-use Apitte\Core\DI\AbstractPlugin;
+use Apitte\Core\DI\ApiExtension;
+use Apitte\Core\DI\Plugin\AbstractPlugin;
+use Apitte\Core\DI\Plugin\PluginCompiler;
+use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
+use Apitte\Debug\Negotiation\Transformer\DebugTransformer;
 use Apitte\Debug\Tracy\BlueScreen\ApiBlueScreen;
 use Apitte\Debug\Tracy\Panel\ApiPanel;
-use Nette\DI\CompilerExtension;
 use Nette\DI\ContainerBuilder;
 use Nette\PhpGenerator\ClassType;
 
@@ -15,11 +18,11 @@ class DebugPlugin extends AbstractPlugin
 	const PLUGIN_NAME = 'debug';
 
 	/**
-	 * @param CompilerExtension $extension
+	 * @param PluginCompiler $compiler
 	 */
-	public function __construct(CompilerExtension $extension)
+	public function __construct(PluginCompiler $compiler)
 	{
-		parent::__construct($extension);
+		parent::__construct($compiler);
 		$this->name = self::PLUGIN_NAME;
 	}
 
@@ -31,11 +34,19 @@ class DebugPlugin extends AbstractPlugin
 	public function loadPluginConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->getExtensionConfig();
+		$config = $this->compiler->getExtension()->getConfig();
 
 		if ($config['debug'] === TRUE) {
 			$builder->addDefinition($this->prefix('panel'))
 				->setClass(ApiPanel::class);
+
+			$builder->addDefinition($this->prefix('transformer.debug'))
+				->setFactory(DebugTransformer::class)
+				->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debug']);
+
+			$builder->addDefinition($this->prefix('transformer.debugdata'))
+				->setFactory(DebugDataTransformer::class)
+				->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debugdata']);
 		}
 	}
 
@@ -45,7 +56,7 @@ class DebugPlugin extends AbstractPlugin
 	 */
 	public function afterPluginCompile(ClassType $class)
 	{
-		$config = $this->getExtensionConfig();
+		$config = $this->compiler->getExtension()->getConfig();
 		$initialize = $class->getMethod('initialize');
 
 		if ($config['debug'] === TRUE) {
