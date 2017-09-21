@@ -36,18 +36,31 @@ class DebugPlugin extends AbstractPlugin
 		$builder = $this->getContainerBuilder();
 		$config = $this->compiler->getExtension()->getConfig();
 
-		if ($config['debug'] === TRUE) {
-			$builder->addDefinition($this->prefix('panel'))
-				->setClass(ApiPanel::class);
+		if ($config['debug'] !== TRUE) return;
 
-			$builder->addDefinition($this->prefix('transformer.debug'))
-				->setFactory(DebugTransformer::class)
-				->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debug']);
+		$builder->addDefinition($this->prefix('panel'))
+			->setClass(ApiPanel::class);
 
-			$builder->addDefinition($this->prefix('transformer.debugdata'))
-				->setFactory(DebugDataTransformer::class)
-				->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debugdata']);
-		}
+		$this->loadNegotiationDebugConfiguration();
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function loadNegotiationDebugConfiguration()
+	{
+		// Skip if plugin apitte/negotiation is not loaded
+		if (!class_exists('Apitte\Negotiation\Transformer\ITransformer', FALSE)) return;
+
+		$builder = $this->getContainerBuilder();
+
+		$builder->addDefinition($this->prefix('transformer.debug'))
+			->setFactory(DebugTransformer::class)
+			->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debug']);
+
+		$builder->addDefinition($this->prefix('transformer.debugdata'))
+			->setFactory(DebugDataTransformer::class)
+			->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debugdata']);
 	}
 
 	/**
