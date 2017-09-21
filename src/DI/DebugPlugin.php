@@ -9,6 +9,7 @@ use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
 use Apitte\Debug\Negotiation\Transformer\DebugTransformer;
 use Apitte\Debug\Tracy\BlueScreen\ApiBlueScreen;
 use Apitte\Debug\Tracy\Panel\ApiPanel;
+use Apitte\Negotiation\DI\NegotiationPlugin;
 use Nette\DI\ContainerBuilder;
 use Nette\PhpGenerator\ClassType;
 
@@ -50,7 +51,7 @@ class DebugPlugin extends AbstractPlugin
 	protected function loadNegotiationDebugConfiguration()
 	{
 		// Skip if plugin apitte/negotiation is not loaded
-		if (!class_exists('Apitte\Negotiation\Transformer\ITransformer', FALSE)) return;
+		if (!$this->compiler->getPluginByType(NegotiationPlugin::class)) return;
 
 		$builder = $this->getContainerBuilder();
 
