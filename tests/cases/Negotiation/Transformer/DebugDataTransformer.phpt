@@ -5,7 +5,7 @@
  */
 
 use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
-use Apitte\Negotiation\Http\ArrayStream;
+use Apitte\Negotiation\Http\ArrayEntity;
 use Contributte\Psr7\Psr7ResponseFactory;
 use Ninjify\Nunjuck\Toolkit;
 use Tester\Assert;
@@ -18,7 +18,7 @@ Toolkit::test(function () {
 	$transformer = new DebugDataTransformer();
 
 	$response = Psr7ResponseFactory::fromGlobal();
-	$response = $response->withBody(ArrayStream::from($response)->with(['foo' => 'bar']));
+	$response = $response->withBody(ArrayEntity::from($response)->with(['foo' => 'bar']));
 	$response = $transformer->encode($response);
 
 	$response->getBody()->rewind();

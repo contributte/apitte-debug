@@ -2,10 +2,9 @@
 
 namespace Apitte\Debug\Negotiation\Transformer;
 
-use Apitte\Negotiation\Http\ArrayStream;
+use Apitte\Mapping\Http\ApiResponse;
+use Apitte\Negotiation\Http\ArrayEntity;
 use Apitte\Negotiation\Transformer\AbstractTransformer;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Tracy\Debugger;
 use function GuzzleHttp\Psr7\stream_for;
 
@@ -29,11 +28,11 @@ class DebugDataTransformer extends AbstractTransformer
 	}
 
 	/**
-	 * @param ResponseInterface $response
+	 * @param ApiResponse $response
 	 * @param array $options
-	 * @return ResponseInterface
+	 * @return ApiResponse
 	 */
-	public function encode(ResponseInterface $response, array $options = [])
+	public function encode(ApiResponse $response, array $options = [])
 	{
 		if (!$this->acceptResponse($response)) return $response;
 
@@ -41,25 +40,13 @@ class DebugDataTransformer extends AbstractTransformer
 		Debugger::$maxLength = $this->maxLength;
 
 		$tmp = clone $response;
-		/** @var ArrayStream $body */
-		$body = $tmp->getBody();
 
 		$response = $response->withHeader('Content-Type', 'text/html')
 			->withBody(stream_for());
 
-		$response->getBody()->write(Debugger::dump($body->getData(), TRUE));
+		$response->getBody()->write(Debugger::dump($tmp->getEntity(), TRUE));
 
 		return $response;
-	}
-
-	/**
-	 * @param ServerRequestInterface $request
-	 * @param array $options
-	 * @return null
-	 */
-	public function decode(ServerRequestInterface $request, array $options = [])
-	{
-		return NULL;
 	}
 
 }
