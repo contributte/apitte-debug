@@ -3,7 +3,6 @@
 namespace Apitte\Debug\Negotiation\Transformer;
 
 use Apitte\Mapping\Http\ApiResponse;
-use Apitte\Negotiation\Http\ArrayEntity;
 use Apitte\Negotiation\Transformer\AbstractTransformer;
 use Tracy\Debugger;
 use function GuzzleHttp\Psr7\stream_for;
