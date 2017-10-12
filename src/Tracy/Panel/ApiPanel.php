@@ -2,19 +2,19 @@
 
 namespace Apitte\Debug\Tracy\Panel;
 
-use Apitte\Core\Schema\ApiSchema;
+use Apitte\Core\Schema\Schema;
 use Tracy\IBarPanel;
 
 final class ApiPanel implements IBarPanel
 {
 
-	/** @var ApiSchema */
+	/** @var Schema */
 	private $schema;
 
 	/**
-	 * @param ApiSchema $schema
+	 * @param Schema $schema
 	 */
-	public function __construct(ApiSchema $schema)
+	public function __construct(Schema $schema)
 	{
 		$this->schema = $schema;
 	}
