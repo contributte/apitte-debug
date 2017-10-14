@@ -1,7 +1,7 @@
 {
   "name": "apitte/debug",
-  "description": "Apitte core library",
-  "keywords": ["api", "rest", "json", "psr7", "middlewares"],
+  "description": "Debugging tools for Apitte stack",
+  "keywords": ["api", "apitte", "tracy", "debugging"],
   "type": "library",
   "license": "MIT",
   "homepage": "https://github.com/apitte/debug",
