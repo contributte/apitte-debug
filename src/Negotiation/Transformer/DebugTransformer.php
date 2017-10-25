@@ -2,6 +2,7 @@
 
 namespace Apitte\Debug\Negotiation\Transformer;
 
+use Apitte\Mapping\Http\ApiRequest;
 use Apitte\Mapping\Http\ApiResponse;
 use Apitte\Negotiation\Transformer\AbstractTransformer;
 use Tracy\Debugger;
@@ -27,11 +28,12 @@ class DebugTransformer extends AbstractTransformer
 	}
 
 	/**
+	 * @param ApiRequest $request
 	 * @param ApiResponse $response
-	 * @param array $options
+	 * @param array $context
 	 * @return ApiResponse
 	 */
-	public function encode(ApiResponse $response, array $options = [])
+	public function transform(ApiRequest $request, ApiResponse $response, array $context = [])
 	{
 		Debugger::$maxDepth = $this->maxDepth;
 		Debugger::$maxLength = $this->maxLength;
