@@ -4,9 +4,11 @@ namespace Apitte\Debug\DI;
 
 use Apitte\Core\DI\ApiExtension;
 use Apitte\Core\DI\Plugin\AbstractPlugin;
+use Apitte\Core\DI\Plugin\CoreSchemaPlugin;
 use Apitte\Core\DI\Plugin\PluginCompiler;
 use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
 use Apitte\Debug\Negotiation\Transformer\DebugTransformer;
+use Apitte\Debug\Schema\Serialization\DebugSchemaDecorator;
 use Apitte\Debug\Tracy\BlueScreen\ApiBlueScreen;
 use Apitte\Debug\Tracy\Panel\ApiPanel;
 use Apitte\Negotiation\DI\NegotiationPlugin;
@@ -62,6 +64,9 @@ class DebugPlugin extends AbstractPlugin
 		$builder->addDefinition($this->prefix('transformer.debugdata'))
 			->setFactory(DebugDataTransformer::class)
 			->addTag(ApiExtension::NEGOTIATION_TRANSFORMER_TAG, ['suffix' => 'debugdata']);
+
+		// Setup debug schema decorator
+		CoreSchemaPlugin::$decorators['debug'] = new DebugSchemaDecorator();
 	}
 
 	/**
