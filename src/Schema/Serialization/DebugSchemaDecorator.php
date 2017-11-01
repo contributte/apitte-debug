@@ -3,7 +3,6 @@
 namespace Apitte\Debug\Schema\Serialization;
 
 use Apitte\Core\Schema\Builder\SchemaBuilder;
-use Apitte\Core\Schema\EndpointNegotiation;
 use Apitte\Core\Schema\Serialization\IDecorator;
 
 final class DebugSchemaDecorator implements IDecorator
@@ -18,12 +17,10 @@ final class DebugSchemaDecorator implements IDecorator
 		foreach ($builder->getControllers() as $controller) {
 			foreach ($controller->getMethods() as $method) {
 				$negotiation1 = $method->addNegotiation();
-				$negotiation1->setType(EndpointNegotiation::TYPE_SUFFIX);
-				$negotiation1->setMetadata(['suffix' => '.debugdata']);
+				$negotiation1->setSuffix('.debugdata');
 
 				$negotiation2 = $method->addNegotiation();
-				$negotiation2->setType(EndpointNegotiation::TYPE_SUFFIX);
-				$negotiation2->setMetadata(['suffix' => '.debug']);
+				$negotiation2->setSuffix('.debug');
 			}
 		}
 
