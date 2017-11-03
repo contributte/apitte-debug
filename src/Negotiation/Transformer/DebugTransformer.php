@@ -2,8 +2,8 @@
 
 namespace Apitte\Debug\Negotiation\Transformer;
 
-use Apitte\Mapping\Http\ApiRequest;
-use Apitte\Mapping\Http\ApiResponse;
+use Apitte\Core\Http\ApiRequest;
+use Apitte\Core\Http\ApiResponse;
 use Apitte\Negotiation\Transformer\AbstractTransformer;
 use Tracy\Debugger;
 use function GuzzleHttp\Psr7\stream_for;
@@ -41,9 +41,14 @@ class DebugTransformer extends AbstractTransformer
 		$tmp = clone $response;
 
 		$response = $response->withHeader('Content-Type', 'text/html')
-			->withBody(stream_for());
+			->withBody(stream_for())
+			->withStatus(599);
 
 		$response->getBody()->write(Debugger::dump($tmp, TRUE));
+
+		if (isset($context['exception'])) {
+			$response->getBody()->write(Debugger::dump($context['exception'], TRUE));
+		}
 
 		return $response;
 	}

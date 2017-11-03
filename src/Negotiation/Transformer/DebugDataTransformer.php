@@ -2,8 +2,8 @@
 
 namespace Apitte\Debug\Negotiation\Transformer;
 
-use Apitte\Mapping\Http\ApiRequest;
-use Apitte\Mapping\Http\ApiResponse;
+use Apitte\Core\Http\ApiRequest;
+use Apitte\Core\Http\ApiResponse;
 use Apitte\Negotiation\Transformer\AbstractTransformer;
 use Tracy\Debugger;
 use function GuzzleHttp\Psr7\stream_for;
@@ -30,20 +30,25 @@ class DebugDataTransformer extends AbstractTransformer
 	/**
 	 * @param ApiRequest $request
 	 * @param ApiResponse $response
-	 * @param array $options
+	 * @param array $context
 	 * @return ApiResponse
 	 */
-	public function transform(ApiRequest $request, ApiResponse $response, array $options = [])
+	public function transform(ApiRequest $request, ApiResponse $response, array $context = [])
 	{
-		if (!$this->accept($response)) return $response;
-
 		Debugger::$maxDepth = $this->maxDepth;
 		Debugger::$maxLength = $this->maxLength;
 
 		$tmp = clone $response;
 
+		if (isset($context['exception'])) {
+			// Handle and display exception
+			Debugger::exceptionHandler($context['exception']);
+			exit();
+		}
+
 		$response = $response->withHeader('Content-Type', 'text/html')
-			->withBody(stream_for());
+			->withBody(stream_for())
+			->withStatus(599);
 
 		$response->getBody()->write(Debugger::dump($tmp->getEntity(), TRUE));
 

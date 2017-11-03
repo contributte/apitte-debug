@@ -4,9 +4,9 @@
  * Test: Negotiation/Transformer/DebugDataTransformer
  */
 
+use Apitte\Core\Http\ApiRequest;
+use Apitte\Core\Http\ApiResponse;
 use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
-use Apitte\Mapping\Http\ApiRequest;
-use Apitte\Mapping\Http\ApiResponse;
 use Apitte\Negotiation\Http\ArrayEntity;
 use Contributte\Psr7\Psr7ResponseFactory;
 use Contributte\Psr7\Psr7ServerRequestFactory;
