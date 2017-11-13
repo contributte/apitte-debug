@@ -78,11 +78,11 @@ class DebugPlugin extends AbstractPlugin
 		$config = $this->compiler->getExtension()->getConfig();
 		$initialize = $class->getMethod('initialize');
 
+		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
+
 		if ($config['debug'] === TRUE) {
 			$initialize->addBody('$this->getService(?)->addPanel($this->getByType(?));', ['tracy.bar', ApiPanel::class]);
 		}
-
-		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
 	}
 
 }
