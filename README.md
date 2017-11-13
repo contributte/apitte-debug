@@ -28,6 +28,12 @@ composer require apitte/debug
 |-------------|--------------|----------|----------|
 | development | `dev-master` | `master` | `>= 5.6` |
 
+## Overview
+
+- [Installation - how to register a plugin](https://github.com/apitte/debug/tree/master/.docs#plugin)
+- [Tracy - debugging](https://github.com/apitte/debug/tree/master/.docs#tracy)
+- [Playground - real examples](https://github.com/apitte/debug/tree/master/.docs#playground)
+
 ## Maintainers
 
 <table>
