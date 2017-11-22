@@ -8,18 +8,16 @@
 
 ## Plugin
 
-```
-composer require apitte/debug
-```
+This plugin requires [Apitte/Core](https://github.com/apitte/core) library.
 
-This package depends on `apitte/core`, so you have to register `ApiExtension` from that package.
+At first you have to register the main extension.
 
 ```yaml
 extensions:
     api: Apitte\Core\DI\ApiExtension
 ```
 
-To enable this plugin you should place `DebugPlugin` under `plugins` key. 
+Secondly, add the `DebugPlugin` plugin.
 
 ```yaml
 api:
