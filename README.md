@@ -32,6 +32,7 @@ composer require apitte/debug
 
 - [Installation - how to register a plugin](https://github.com/apitte/debug/tree/master/.docs#plugin)
 - [Tracy - debugging](https://github.com/apitte/debug/tree/master/.docs#tracy)
+- [Bridges - extra features](https://github.com/apitte/debug/tree/master/.docs#bridges)
 - [Playground - real examples](https://github.com/apitte/debug/tree/master/.docs#playground)
 
 ## Maintainers
