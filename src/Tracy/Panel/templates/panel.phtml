@@ -1,9 +1,13 @@
 <?php
+
 /** @var Apitte\Core\Schema\Schema $schema */
+
+use Tracy\Helpers;
 ?>
+
 <h1>API</h1>
 
-<h2>Endpoints</h2>
+<h2>Endpoints (<?= count($schema->getEndpoints()) ?>)</h2>
 
 <div class="tracy-inner">
     <table>
@@ -11,23 +15,19 @@
             <th>Method</th>
             <th>Mask</th>
             <th>Handler</th>
-            <th>Parameters</th>
         </tr>
         <?php foreach ($schema->getEndpoints() as $endpoint) { ?>
+            <?php
+            $endpointRf = new ReflectionClass($endpoint->getHandler()->getClass());
+            $methodRf = $endpointRf->getMethod($endpoint->getHandler()->getMethod());
+            ?>
             <tr>
                 <td><?= implode(',', $endpoint->getMethods()) ?></td>
                 <td><?= $endpoint->getMask() ?></td>
-                <td><?= $endpoint->getHandler()->getClass() ?> :: <?= $endpoint->getHandler()->getMethod() ?>()</td>
                 <td>
-                    <?php if (count($endpoint->getParameters()) > 0) { ?>
-                        <table>
-                            <?php foreach ($endpoint->getParameters() as $param) { ?>
-                                <tr>
-                                    <td><?= $param->getName() ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    <?php } ?>
+                    <a href="<?= Helpers::editorUri($endpointRf->getFileName(), $methodRf->getStartLine()) ?>">
+                    <?= $endpoint->getHandler()->getClass() ?>::<?= $endpoint->getHandler()->getMethod() ?>()
+                    </a>
                 </td>
             </tr>
         <?php } ?>
