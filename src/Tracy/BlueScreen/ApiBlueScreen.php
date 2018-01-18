@@ -2,7 +2,7 @@
 
 namespace Apitte\Debug\Tracy\BlueScreen;
 
-use Apitte\Core\Exception\Runtime\ApiException;
+use Apitte\Core\Exception\ApiException;
 use Tracy\BlueScreen;
 use Tracy\Dumper;
 
