@@ -32,7 +32,7 @@ final class ApiBlueScreen
 	 */
 	private static function renderTab(ApiException $e)
 	{
-		return 'Api';
+		return 'Apitte';
 	}
 
 	/**

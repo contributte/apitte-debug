@@ -10,10 +10,12 @@ use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
 use Apitte\Debug\Negotiation\Transformer\DebugTransformer;
 use Apitte\Debug\Schema\Serialization\DebugSchemaDecorator;
 use Apitte\Debug\Tracy\BlueScreen\ApiBlueScreen;
+use Apitte\Debug\Tracy\BlueScreen\ValidationBlueScreen;
 use Apitte\Debug\Tracy\Panel\ApiPanel;
 use Apitte\Negotiation\DI\NegotiationPlugin;
 use Nette\DI\ContainerBuilder;
 use Nette\PhpGenerator\ClassType;
+use Tracy\Debugger;
 
 class DebugPlugin extends AbstractPlugin
 {
@@ -45,6 +47,10 @@ class DebugPlugin extends AbstractPlugin
 			->setClass(ApiPanel::class);
 
 		$this->loadNegotiationDebugConfiguration();
+
+		// BueScreen - runtime
+		ApiBlueScreen::register(Debugger::getBlueScreen());
+		ValidationBlueScreen::register(Debugger::getBlueScreen());
 	}
 
 	/**
@@ -79,6 +85,7 @@ class DebugPlugin extends AbstractPlugin
 		$initialize = $class->getMethod('initialize');
 
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
+		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ValidationBlueScreen::class), 'tracy.blueScreen']);
 
 		if ($config['debug'] === TRUE) {
 			$initialize->addBody('$this->getService(?)->addPanel($this->getByType(?));', ['tracy.bar', ApiPanel::class]);
