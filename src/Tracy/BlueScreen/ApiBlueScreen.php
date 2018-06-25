@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Apitte\Debug\Tracy\BlueScreen;
 
@@ -9,15 +9,11 @@ use Tracy\Dumper;
 final class ApiBlueScreen
 {
 
-	/**
-	 * @param BlueScreen $blueScreen
-	 * @return void
-	 */
-	public static function register(BlueScreen $blueScreen)
+	public static function register(BlueScreen $blueScreen): void
 	{
-		$blueScreen->addPanel(function ($e) {
-			if (!($e instanceof ApiException)) return;
-			if (!$e->getContext()) return;
+		$blueScreen->addPanel(function ($e): ?array {
+			if (!($e instanceof ApiException)) return null;
+			if (!$e->getContext()) return null;
 
 			return [
 				'tab' => self::renderTab($e),
@@ -26,20 +22,12 @@ final class ApiBlueScreen
 		});
 	}
 
-	/**
-	 * @param ApiException $e
-	 * @return string
-	 */
-	private static function renderTab(ApiException $e)
+	private static function renderTab(ApiException $e): string
 	{
 		return 'Apitte';
 	}
 
-	/**
-	 * @param ApiException $e
-	 * @return string
-	 */
-	private static function renderPanel(ApiException $e)
+	private static function renderPanel(ApiException $e): string
 	{
 		return Dumper::toHtml($e->getContext());
 	}

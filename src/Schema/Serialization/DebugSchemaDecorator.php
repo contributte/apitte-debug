@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Apitte\Debug\Schema\Serialization;
 
@@ -8,11 +8,7 @@ use Apitte\Core\Schema\Serialization\IDecorator;
 final class DebugSchemaDecorator implements IDecorator
 {
 
-	/**
-	 * @param SchemaBuilder $builder
-	 * @return SchemaBuilder
-	 */
-	public function decorate(SchemaBuilder $builder)
+	public function decorate(SchemaBuilder $builder): SchemaBuilder
 	{
 		foreach ($builder->getControllers() as $controller) {
 			foreach ($controller->getMethods() as $method) {

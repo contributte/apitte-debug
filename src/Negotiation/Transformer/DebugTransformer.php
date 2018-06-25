@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Apitte\Debug\Negotiation\Transformer;
 
@@ -17,23 +17,16 @@ class DebugTransformer extends AbstractTransformer
 	/** @var int */
 	private $maxLength;
 
-	/**
-	 * @param int $maxDepth
-	 * @param int $maxLength
-	 */
-	public function __construct($maxDepth = 10, $maxLength = 1500)
+	public function __construct(int $maxDepth = 10, int $maxLength = 1500)
 	{
 		$this->maxDepth = $maxDepth;
 		$this->maxLength = $maxLength;
 	}
 
 	/**
-	 * @param ApiRequest $request
-	 * @param ApiResponse $response
-	 * @param array $context
-	 * @return ApiResponse
+	 * @param mixed[] $context
 	 */
-	public function transform(ApiRequest $request, ApiResponse $response, array $context = [])
+	public function transform(ApiRequest $request, ApiResponse $response, array $context = []): ApiResponse
 	{
 		Debugger::$maxDepth = $this->maxDepth;
 		Debugger::$maxLength = $this->maxLength;
@@ -44,10 +37,10 @@ class DebugTransformer extends AbstractTransformer
 			->withBody(stream_for())
 			->withStatus(599);
 
-		$response->getBody()->write(Debugger::dump($tmp, TRUE));
+		$response->getBody()->write(Debugger::dump($tmp, true));
 
 		if (isset($context['exception'])) {
-			$response->getBody()->write(Debugger::dump($context['exception'], TRUE));
+			$response->getBody()->write(Debugger::dump($context['exception'], true));
 		}
 
 		return $response;

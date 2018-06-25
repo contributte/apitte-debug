@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Apitte\Debug\Tracy\Panel;
 
@@ -11,9 +11,6 @@ final class ApiPanel implements IBarPanel
 	/** @var Schema */
 	private $schema;
 
-	/**
-	 * @param Schema $schema
-	 */
 	public function __construct(Schema $schema)
 	{
 		$this->schema = $schema;
@@ -21,10 +18,8 @@ final class ApiPanel implements IBarPanel
 
 	/**
 	 * Renders HTML code for custom tab.
-	 *
-	 * @return string
 	 */
-	public function getTab()
+	public function getTab(): string
 	{
 		ob_start();
 		$schema = $this->schema;
@@ -35,10 +30,8 @@ final class ApiPanel implements IBarPanel
 
 	/**
 	 * Renders HTML code for custom panel.
-	 *
-	 * @return string
 	 */
-	public function getPanel()
+	public function getPanel(): string
 	{
 		ob_start();
 		$schema = $this->schema;
