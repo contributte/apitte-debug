@@ -22,6 +22,11 @@ class DebugPlugin extends AbstractPlugin
 
 	const PLUGIN_NAME = 'debug';
 
+	/** @var array */
+	protected $defaults = [
+		'debug' => TRUE,
+	];
+
 	/**
 	 * @param PluginCompiler $compiler
 	 */
@@ -81,13 +86,15 @@ class DebugPlugin extends AbstractPlugin
 	 */
 	public function afterPluginCompile(ClassType $class)
 	{
-		$config = $this->compiler->getExtension()->getConfig();
+		$global = $this->compiler->getExtension()->getConfig();
+		$config = $this->getConfig();
+
 		$initialize = $class->getMethod('initialize');
 
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ValidationBlueScreen::class), 'tracy.blueScreen']);
 
-		if ($config['debug'] === TRUE) {
+		if ($global['debug'] === TRUE || $config['debug'] === TRUE) {
 			$initialize->addBody('$this->getService(?)->addPanel($this->getByType(?));', ['tracy.bar', ApiPanel::class]);
 		}
 	}
