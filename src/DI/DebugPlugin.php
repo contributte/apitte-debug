@@ -24,7 +24,7 @@ class DebugPlugin extends AbstractPlugin
 
 	/** @var mixed[] */
 	protected $defaults = [
-		'debug' => TRUE,
+		'debug' => true,
 	];
 
 	public function __construct(PluginCompiler $compiler)
