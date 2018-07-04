@@ -44,9 +44,10 @@ class DebugPlugin extends AbstractPlugin
 	public function loadPluginConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->compiler->getExtension()->getConfig();
+		$global = $this->compiler->getExtension()->getConfig();
+		$config = $this->getConfig();
 
-		if ($config['debug'] !== TRUE) return;
+		if ($global['debug'] !== TRUE && $config['debug'] !== TRUE) return;
 
 		$builder->addDefinition($this->prefix('panel'))
 			->setClass(ApiPanel::class);
@@ -94,7 +95,7 @@ class DebugPlugin extends AbstractPlugin
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ValidationBlueScreen::class), 'tracy.blueScreen']);
 
-		if ($global['debug'] === TRUE || $config['debug'] === TRUE) {
+		if ($global['debug'] === TRUE && $config['debug'] === TRUE) {
 			$initialize->addBody('$this->getService(?)->addPanel($this->getByType(?));', ['tracy.bar', ApiPanel::class]);
 		}
 	}
