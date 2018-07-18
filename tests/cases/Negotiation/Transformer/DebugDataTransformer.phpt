@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * Test: Negotiation/Transformer/DebugDataTransformer
@@ -16,7 +16,7 @@ use Tester\Assert;
 require_once __DIR__ . '/../../../bootstrap.php';
 
 // Warnings
-Toolkit::test(function () {
+Toolkit::test(function (): void {
 	$transformer = new DebugDataTransformer();
 
 	$request = new ApiRequest(Psr7ServerRequestFactory::fromSuperGlobal());

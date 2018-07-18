@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Apitte\Debug\Tracy\BlueScreen;
 
@@ -10,14 +10,10 @@ use Tracy\Helpers;
 final class ValidationBlueScreen
 {
 
-	/**
-	 * @param BlueScreen $blueScreen
-	 * @return void
-	 */
-	public static function register(BlueScreen $blueScreen)
+	public static function register(BlueScreen $blueScreen): void
 	{
-		$blueScreen->addPanel(function ($e) {
-			if (!($e instanceof InvalidSchemaException)) return;
+		$blueScreen->addPanel(function ($e): ?array {
+			if (!($e instanceof InvalidSchemaException)) return null;
 
 			return [
 				'tab' => self::renderTab($e),
@@ -26,22 +22,17 @@ final class ValidationBlueScreen
 		});
 	}
 
-	/**
-	 * @param InvalidSchemaException $e
-	 * @return string
-	 */
-	private static function renderTab(InvalidSchemaException $e)
+	private static function renderTab(InvalidSchemaException $e): string
 	{
 		return 'Apitte - Validation';
 	}
 
 	/**
-	 * @param InvalidSchemaException $e
 	 * @return mixed
 	 */
-	private static function renderPanel(InvalidSchemaException $e)
+	private static function renderPanel(InvalidSchemaException $e): ?string
 	{
-		if (!$e->controller || !$e->method) return NULL;
+		if (!$e->controller || !$e->method) return null;
 
 		$rf = new ReflectionClass($e->controller->getClass());
 		$rm = $rf->getMethod($e->method->getName());
