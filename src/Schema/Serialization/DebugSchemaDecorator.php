@@ -12,11 +12,8 @@ final class DebugSchemaDecorator implements IDecorator
 	{
 		foreach ($builder->getControllers() as $controller) {
 			foreach ($controller->getMethods() as $method) {
-				$negotiation1 = $method->addNegotiation();
-				$negotiation1->setSuffix('.debugdata');
-
-				$negotiation2 = $method->addNegotiation();
-				$negotiation2->setSuffix('.debug');
+				$method->addNegotiation('.debugdata');
+				$method->addNegotiation('.debug');
 			}
 		}
 
