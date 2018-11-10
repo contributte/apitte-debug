@@ -45,7 +45,7 @@ class DebugPlugin extends AbstractPlugin
 		if ($global['debug'] !== true && $config['debug'] !== true) return;
 
 		$builder->addDefinition($this->prefix('panel'))
-			->setClass(ApiPanel::class);
+			->setFactory(ApiPanel::class);
 
 		$this->loadNegotiationDebugConfiguration();
 
@@ -57,7 +57,7 @@ class DebugPlugin extends AbstractPlugin
 	protected function loadNegotiationDebugConfiguration(): void
 	{
 		// Skip if plugin apitte/negotiation is not loaded
-		if (!$this->compiler->getPluginByType(NegotiationPlugin::class)) return;
+		if ($this->compiler->getPluginByType(NegotiationPlugin::class) === null) return;
 
 		$builder = $this->getContainerBuilder();
 

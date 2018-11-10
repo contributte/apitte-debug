@@ -27,18 +27,15 @@ final class ValidationBlueScreen
 		return 'Apitte - Validation';
 	}
 
-	/**
-	 * @return mixed
-	 */
 	private static function renderPanel(InvalidSchemaException $e): ?string
 	{
-		if (!$e->controller || !$e->method) return null;
+		if ($e->controller === null || $e->method === null) return null;
 
 		$rf = new ReflectionClass($e->controller->getClass());
 		$rm = $rf->getMethod($e->method->getName());
 
 		return '<p><b>File:</b>' . Helpers::editorLink($rf->getFileName(), $rm->getStartLine()) . '</p>'
-			. BlueScreen::highlightFile($rf->getFileName(), $rm->getStartLine(), 20);
+			. BlueScreen::highlightFile((string) $rf->getFileName(), (int) $rm->getStartLine(), 20);
 	}
 
 }
