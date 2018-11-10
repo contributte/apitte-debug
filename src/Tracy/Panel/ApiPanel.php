@@ -25,7 +25,7 @@ final class ApiPanel implements IBarPanel
 		$schema = $this->schema;
 		require __DIR__ . '/templates/tab.phtml';
 
-		return ob_get_clean();
+		return (string) ob_get_clean();
 	}
 
 	/**
@@ -37,7 +37,7 @@ final class ApiPanel implements IBarPanel
 		$schema = $this->schema;
 		require __DIR__ . '/templates/panel.phtml';
 
-		return ob_get_clean();
+		return (string) ob_get_clean();
 	}
 
 }
