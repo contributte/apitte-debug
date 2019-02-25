@@ -10,7 +10,7 @@
 [![Downloads this Month](https://img.shields.io/packagist/dm/apitte/debug.svg?style=flat-square)](https://packagist.org/packages/apitte/debug)
 [![Downloads total](https://img.shields.io/packagist/dt/apitte/debug.svg?style=flat-square)](https://packagist.org/packages/apitte/debug)
 [![Latest stable](https://img.shields.io/packagist/v/apitte/debug.svg?style=flat-square)](https://packagist.org/packages/apitte/debug)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
 
 ## Discussion / Help
 
