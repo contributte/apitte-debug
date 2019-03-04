@@ -1,52 +1,41 @@
-# Apitte/Debug
+# Apitte Debug
 
-## Content
+Debug tools for [Apitte](https://github.com/apitte/core), based on [Tracy debugger](https://github.com/nette/tracy).
 
-- [Installation - how to register a plugin](#plugin)
-- [Tracy - debugging](#tracy)
-- [Bridges - extra features](#bridges)
-- [Playground - real examples](#playground)
+## Setup
 
-## Plugin
+First of all, setup [core](https://github.com/apitte/core) package.
 
-This plugin requires [Apitte/Core](https://github.com/apitte/core) library.
+Install and register debug plugin
 
-At first you have to register the main extension.
-
-```yaml
-extensions:
-    api: Apitte\Core\DI\ApiExtension
+```bash
+composer require apitte/debug
 ```
-
-Secondly, add the `DebugPlugin` plugin.
 
 ```yaml
 api:
-    plugins:
+    plugins: 
         Apitte\Debug\DI\DebugPlugin:
+            debug: %debugMode%
 ```
 
 ## Tracy
 
-This plugin adds 2 Tracy extensions:
+- bar panel - displays all router
+- blue screen panel - displays endpoint with invalid schema
 
-- panel
-- bluescreen panel
+## Negotiation
 
-## Bridges
+If you have [negotiation](https://github.com/apitte/negotiation) plugin installed then you will be able to use two new suffixes.
 
-### Apitte/Negotiation
+With these suffixes you will also be able to see **Tracy bar**
 
-This plugin also adds some extra features if you use `apitte/negotiation`. At first take a [quick look at documentation](https://github.com/apitte/negotiation/tree/master/.docs). 
+`.debug`
 
-This plugins register 2 more transformers:
+- dumps response
+- `example.com/api/v1/users.debug`
 
-- `DebugTransformer` - You can type `example.com/user.debug` and you'll see dump of `Apitte\Core\Http\ApiResponse`. In case of exception, you'll see the Tracy-exception.
+`.debugdata`
 
-- `DebugDataTransformer` - You can type `example.com/user.debugdata` and you'll see dump of response entity data.
-
-## Playground
-
-I've made a repository with full applications for education.
-
-Take a look: https://github.com/apitte/playground
+- dumps response entity
+- `example.com/api/v1/users.debugdata`

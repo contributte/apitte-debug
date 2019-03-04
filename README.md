@@ -1,8 +1,6 @@
-# Apitte\Debug
+# Apitte Debug
 
-:wrench: Debug tools for Apitte.
-
------
+Debug tools for [Apitte](https://github.com/apitte/core), based on [Tracy debugger](https://github.com/nette/tracy).
 
 [![Build Status](https://img.shields.io/travis/apitte/debug.svg?style=flat-square)](https://travis-ci.org/apitte/debug)
 [![Code coverage](https://img.shields.io/coveralls/apitte/debug.svg?style=flat-square)](https://coveralls.io/r/apitte/debug)
@@ -16,12 +14,6 @@
 
 [![Join the chat](https://img.shields.io/gitter/room/apitte/apitte.svg?style=flat-square)](http://bit.ly/apittegitter)
 
-## Install
-
-```
-composer require apitte/debug
-```
-
 ## Version
 
 | State       | Version      | Branch   | PHP      | Composer                                        |
@@ -30,12 +22,11 @@ composer require apitte/debug
 | stable      | `^0.4.0`     | `master` | `>= 7.1` |                                                 |
 | stable      | `^0.3.0`     | `master` | `>= 5.6` |                                                 |
 
-## Overview
+## Documentation
 
-- [Installation - how to register a plugin](https://github.com/apitte/debug/tree/master/.docs#plugin)
-- [Tracy - debugging](https://github.com/apitte/debug/tree/master/.docs#tracy)
-- [Bridges - extra features](https://github.com/apitte/debug/tree/master/.docs#bridges)
-- [Playground - real examples](https://github.com/apitte/debug/tree/master/.docs#playground)
+- [Setup](.docs/README.md#setup)
+- [Tracy](.docs/README.md#tracy)
+- [Negotiation](.docs/README.md#negotiation)
 
 ## Maintainers
 
@@ -60,10 +51,8 @@ composer require apitte/debug
   </tbody>
 </table>
 
------
+## Sponsoring
 
-The development is sponsored by [Tlapnet](http://www.tlapnet.cz) and a lot of coffees. Thank you guys! :+1:
+<a href="https://github.com/tlapnet"><img  width="200" src="https://cdn.rawgit.com/f3l1x/xsource/2463efb7/assets/tlapdev.png"></a>
 
------
-
-Thank you for testing, reporting and contributing.
+The development is sponsored by [Tlapnet](https://www.tlapnet.cz)
