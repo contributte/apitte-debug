@@ -22,41 +22,28 @@
     "tracy/tracy": "~2.4.14 || ~2.5.0 || ~2.6.0"
   },
   "require-dev": {
-    "ninjify/qa": "^0.8.0",
-    "ninjify/nunjuck": "^0.2.0",
     "apitte/negotiation": "^0.5.0",
     "nette/di": "~2.4.12",
-    "phpstan/phpstan-shim": "^0.11",
+    "ninjify/nunjuck": "^0.2.0",
+    "ninjify/qa": "^0.8.0",
     "phpstan/phpstan-deprecation-rules": "^0.11",
     "phpstan/phpstan-nette": "^0.11",
+    "phpstan/phpstan-shim": "^0.11",
     "phpstan/phpstan-strict-rules": "^0.11"
+  },
+  "conflict": {
+    "apitte/negotiation": "<0.5.0",
+    "nette/di": "<2.4.12"
   },
   "autoload": {
     "psr-4": {
       "Apitte\\Debug\\": "src"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\Fixtures\\": "tests/fixtures"
-    }
-  },
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "scripts": {
-    "qa": [
-      "linter src tests",
-      "codesniffer src tests"
-    ],
-    "tests": [
-      "tester -s -p php --colors 1 -C tests/cases"
-    ],
-    "coverage": [
-      "tester -s -p phpdbg --colors 1 -C --coverage ./coverage.xml --coverage-src ./src tests/cases"
-    ],
-    "phpstan": [
-      "vendor/bin/phpstan analyse -l max -c phpstan.neon src"
-    ]
+  "config": {
+    "sort-packages": true
   },
   "extra": {
     "branch-alias": {
