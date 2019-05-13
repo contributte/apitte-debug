@@ -18,11 +18,11 @@
   ],
   "require": {
     "php": ">= 7.1",
-    "apitte/core": "^0.5.0",
+    "apitte/core": "^0.6.0",
     "tracy/tracy": "~2.4.14 || ~2.5.0 || ~2.6.0"
   },
   "require-dev": {
-    "apitte/negotiation": "^0.5.0",
+    "apitte/negotiation": "^0.6.0",
     "nette/di": "~2.4.12",
     "ninjify/nunjuck": "^0.2.0",
     "ninjify/qa": "^0.8.0",
@@ -32,7 +32,7 @@
     "phpstan/phpstan-strict-rules": "^0.11"
   },
   "conflict": {
-    "apitte/negotiation": "<0.5.0",
+    "apitte/negotiation": "<0.6.0",
     "nette/di": "<2.4.12"
   },
   "autoload": {
@@ -47,7 +47,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.5.x-dev"
+      "dev-master": "0.6.x-dev"
     }
   }
 }
