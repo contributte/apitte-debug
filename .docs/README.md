@@ -2,6 +2,12 @@
 
 Debug tools for [Apitte](https://github.com/apitte/core), based on [Tracy debugger](https://github.com/nette/tracy).
 
+## Content
+
+- [Setup](#setup)
+- [Tracy](#tracy)
+- [Negotiation](#negotiation)
+
 ## Setup
 
 First of all, setup [core](https://github.com/apitte/core) package.
