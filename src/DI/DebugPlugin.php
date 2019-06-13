@@ -3,9 +3,8 @@
 namespace Apitte\Debug\DI;
 
 use Apitte\Core\DI\ApiExtension;
-use Apitte\Core\DI\Plugin\AbstractPlugin;
 use Apitte\Core\DI\Plugin\CoreSchemaPlugin;
-use Apitte\Core\DI\Plugin\PluginCompiler;
+use Apitte\Core\DI\Plugin\Plugin;
 use Apitte\Debug\Negotiation\Transformer\DebugDataTransformer;
 use Apitte\Debug\Negotiation\Transformer\DebugTransformer;
 use Apitte\Debug\Schema\Serialization\DebugSchemaDecorator;
@@ -15,22 +14,27 @@ use Apitte\Debug\Tracy\Panel\ApiPanel;
 use Apitte\Negotiation\DI\NegotiationPlugin;
 use Nette\DI\ContainerBuilder;
 use Nette\PhpGenerator\ClassType;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
+use stdClass;
 use Tracy\Debugger;
 
-class DebugPlugin extends AbstractPlugin
+/**
+ * @property-read stdClass $config
+ */
+class DebugPlugin extends Plugin
 {
 
-	public const PLUGIN_NAME = 'debug';
-
-	/** @var mixed[] */
-	protected $defaults = [
-		'debug' => true,
-	];
-
-	public function __construct(PluginCompiler $compiler)
+	public static function getName(): string
 	{
-		parent::__construct($compiler);
-		$this->name = self::PLUGIN_NAME;
+		return 'debug';
+	}
+
+	protected function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'debug' => Expect::bool(true),
+		]);
 	}
 
 	/**
@@ -40,9 +44,9 @@ class DebugPlugin extends AbstractPlugin
 	{
 		$builder = $this->getContainerBuilder();
 		$global = $this->compiler->getExtension()->getConfig();
-		$config = $this->getConfig();
+		$config = $this->config;
 
-		if ($global['debug'] !== true && $config['debug'] !== true) return;
+		if (!$global->debug || !$config->debug) return;
 
 		$builder->addDefinition($this->prefix('panel'))
 			->setFactory(ApiPanel::class);
@@ -76,14 +80,14 @@ class DebugPlugin extends AbstractPlugin
 	public function afterPluginCompile(ClassType $class): void
 	{
 		$global = $this->compiler->getExtension()->getConfig();
-		$config = $this->getConfig();
+		$config = $this->config;
 
 		$initialize = $class->getMethod('initialize');
 
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ValidationBlueScreen::class), 'tracy.blueScreen']);
 
-		if ($global['debug'] === true && $config['debug'] === true) {
+		if ($global->debug && $config->debug) {
 			$initialize->addBody('$this->getService(?)->addPanel($this->getByType(?));', ['tracy.bar', ApiPanel::class]);
 		}
 	}
