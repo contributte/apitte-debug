@@ -18,11 +18,11 @@
   ],
   "require": {
     "php": "^7.2",
-    "apitte/core": "^0.6.0",
+    "apitte/core": "^0.7.0",
     "tracy/tracy": "~2.6.0"
   },
   "require-dev": {
-    "apitte/negotiation": "^0.6.0",
+    "apitte/negotiation": "^0.7.0",
     "ninjify/nunjuck": "^0.2.0",
     "ninjify/qa": "^0.8.0",
     "phpstan/extension-installer": "^1.0",
