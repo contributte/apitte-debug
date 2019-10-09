@@ -19,7 +19,7 @@
   "require": {
     "php": "^7.2",
     "apitte/core": "^0.7.0",
-    "tracy/tracy": "~2.6.0"
+    "tracy/tracy": "~2.6.0|~2.7.0"
   },
   "require-dev": {
     "apitte/negotiation": "^0.7.0",
