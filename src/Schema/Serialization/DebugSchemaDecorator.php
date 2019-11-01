@@ -2,7 +2,7 @@
 
 namespace Apitte\Debug\Schema\Serialization;
 
-use Apitte\Core\Schema\Builder\SchemaBuilder;
+use Apitte\Core\Schema\SchemaBuilder;
 use Apitte\Core\Schema\Serialization\IDecorator;
 
 final class DebugSchemaDecorator implements IDecorator
