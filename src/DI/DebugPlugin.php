@@ -33,7 +33,10 @@ class DebugPlugin extends Plugin
 	protected function getConfigSchema(): Schema
 	{
 		return Expect::structure([
-			'debug' => Expect::bool(true),
+			'debug' => Expect::structure([
+				'panel' => Expect::bool(false),
+				'negotiation' => Expect::bool(true),
+			]),
 		]);
 	}
 
@@ -46,14 +49,18 @@ class DebugPlugin extends Plugin
 		$global = $this->compiler->getExtension()->getConfig();
 		$config = $this->config;
 
-		if (!$global->debug || !$config->debug) return;
+		if (!$global->debug) return;
 
-		$builder->addDefinition($this->prefix('panel'))
-			->setFactory(ApiPanel::class);
+		if ($config->debug->panel) {
+			$builder->addDefinition($this->prefix('panel'))
+				->setFactory(ApiPanel::class);
+		}
 
-		$this->loadNegotiationDebugConfiguration();
+		if ($config->debug->negotiation) {
+			$this->loadNegotiationDebugConfiguration();
+		}
 
-		// BueScreen - runtime
+		// BlueScreen - runtime
 		ApiBlueScreen::register(Debugger::getBlueScreen());
 		ValidationBlueScreen::register(Debugger::getBlueScreen());
 	}
@@ -87,7 +94,7 @@ class DebugPlugin extends Plugin
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ApiBlueScreen::class), 'tracy.blueScreen']);
 		$initialize->addBody('?::register($this->getService(?));', [ContainerBuilder::literal(ValidationBlueScreen::class), 'tracy.blueScreen']);
 
-		if ($global->debug && $config->debug) {
+		if ($global->debug && $config->debug->panel) {
 			$initialize->addBody('$this->getService(?)->addPanel($this->getService(?));', ['tracy.bar', $this->prefix('panel')]);
 		}
 	}

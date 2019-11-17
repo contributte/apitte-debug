@@ -22,7 +22,9 @@ composer require apitte/debug
 api:
     plugins: 
         Apitte\Debug\DI\DebugPlugin:
-            debug: %debugMode%
+            debug:
+                panel: %debugMode%
+                negotiation: %debugMode%
 ```
 
 ## Tracy
