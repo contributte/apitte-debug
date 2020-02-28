@@ -12,8 +12,13 @@ final class ApiBlueScreen
 	public static function register(BlueScreen $blueScreen): void
 	{
 		$blueScreen->addPanel(function ($e): ?array {
-			if (!($e instanceof ApiException)) return null;
-			if (!$e->getContext()) return null;
+			if (!($e instanceof ApiException)) {
+				return null;
+			}
+
+			if (!$e->getContext()) {
+				return null;
+			}
 
 			return [
 				'tab' => self::renderTab($e),

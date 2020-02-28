@@ -49,7 +49,9 @@ class DebugPlugin extends Plugin
 		$global = $this->compiler->getExtension()->getConfig();
 		$config = $this->config;
 
-		if (!$global->debug) return;
+		if (!$global->debug) {
+			return;
+		}
 
 		if ($config->debug->panel) {
 			$builder->addDefinition($this->prefix('panel'))
@@ -68,7 +70,9 @@ class DebugPlugin extends Plugin
 	protected function loadNegotiationDebugConfiguration(): void
 	{
 		// Skip if plugin apitte/negotiation is not loaded
-		if ($this->compiler->getPluginByType(NegotiationPlugin::class) === null) return;
+		if ($this->compiler->getPluginByType(NegotiationPlugin::class) === null) {
+			return;
+		}
 
 		$builder = $this->getContainerBuilder();
 

@@ -23,13 +23,15 @@
   },
   "require-dev": {
     "apitte/negotiation": "^0.7.0",
-    "ninjify/nunjuck": "^0.2.0",
-    "ninjify/qa": "^0.8.0",
+    "nette/di": "^3.0",
+    "nette/schema": "^1.0",
+    "ninjify/nunjuck": "^0.3",
+    "ninjify/qa": "^0.10",
     "phpstan/extension-installer": "^1.0",
-    "phpstan/phpstan-deprecation-rules": "^0.11",
-    "phpstan/phpstan-nette": "^0.11",
-    "phpstan/phpstan-shim": "^0.11",
-    "phpstan/phpstan-strict-rules": "^0.11"
+    "phpstan/phpstan": "^0.12",
+    "phpstan/phpstan-deprecation-rules": "^0.12",
+    "phpstan/phpstan-nette": "^0.12",
+    "phpstan/phpstan-strict-rules": "^0.12"
   },
   "autoload": {
     "psr-4": {
