@@ -13,7 +13,9 @@ final class ValidationBlueScreen
 	public static function register(BlueScreen $blueScreen): void
 	{
 		$blueScreen->addPanel(function ($e): ?array {
-			if (!($e instanceof InvalidSchemaException)) return null;
+			if (!($e instanceof InvalidSchemaException)) {
+				return null;
+			}
 
 			return [
 				'tab' => self::renderTab($e),
@@ -29,7 +31,9 @@ final class ValidationBlueScreen
 
 	private static function renderPanel(InvalidSchemaException $e): ?string
 	{
-		if ($e->controller === null || $e->method === null) return null;
+		if ($e->controller === null || $e->method === null || !class_exists($e->controller->getClass())) {
+			return null;
+		}
 
 		$rf = new ReflectionClass($e->controller->getClass());
 		$rm = $rf->getMethod($e->method->getName());
