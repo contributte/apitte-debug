@@ -5,8 +5,8 @@ namespace Apitte\Debug\Negotiation\Transformer;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
 use Apitte\Negotiation\Transformer\AbstractTransformer;
+use GuzzleHttp\Psr7\Utils;
 use Tracy\Debugger;
-use function GuzzleHttp\Psr7\stream_for;
 
 class DebugDataTransformer extends AbstractTransformer
 {
@@ -40,7 +40,7 @@ class DebugDataTransformer extends AbstractTransformer
 		}
 
 		$response = $response->withHeader('Content-Type', 'text/html')
-			->withBody(stream_for())
+			->withBody(Utils::streamFor())
 			->withStatus(599);
 
 		$response->getBody()->write(Debugger::dump($tmp->getEntity(), true));
