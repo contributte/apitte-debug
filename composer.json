@@ -26,7 +26,7 @@
     "nette/di": "^3.0",
     "nette/schema": "^1.0",
     "ninjify/nunjuck": "^0.3",
-    "ninjify/qa": "^0.10",
+    "ninjify/qa": "^0.12",
     "phpstan/extension-installer": "^1.0",
     "phpstan/phpstan": "^0.12",
     "phpstan/phpstan-deprecation-rules": "^0.12",

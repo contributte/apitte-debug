@@ -12,6 +12,7 @@ use Contributte\Psr7\Psr7ResponseFactory;
 use Contributte\Psr7\Psr7ServerRequestFactory;
 use Ninjify\Nunjuck\Toolkit;
 use Tester\Assert;
+use Tracy\Debugger;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
@@ -25,9 +26,14 @@ Toolkit::test(function (): void {
 	$response = $transformer->transform($request, $response);
 
 	$response->getBody()->rewind();
-	Assert::match(trim('
+	$expected = version_compare(Debugger::VERSION, '2.8.0', '<') ? '
 Apitte\Negotiation\Http\ArrayEntity %a%
    data protected => array (1)
    |  foo => "bar" (3)
-'), $response->getBody()->getContents());
+' : '
+Apitte\Negotiation\Http\ArrayEntity %a%
+   data: array (1)
+   |  \'foo\' => \'bar\'
+';
+	Assert::match(trim($expected), $response->getBody()->getContents());
 });
