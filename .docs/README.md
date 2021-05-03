@@ -18,9 +18,9 @@ Install and register debug plugin
 composer require apitte/debug
 ```
 
-```yaml
+```neon
 api:
-    plugins: 
+    plugins:
         Apitte\Debug\DI\DebugPlugin:
             debug:
                 panel: %debugMode%
