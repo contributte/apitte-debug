@@ -21,11 +21,13 @@ final class ApiPanel implements IBarPanel
 	 */
 	public function getTab(): string
 	{
+		// phpcs:disable
 		ob_start();
 		$schema = $this->schema;
 		require __DIR__ . '/templates/tab.phtml';
 
 		return (string) ob_get_clean();
+		// phpcs:enable
 	}
 
 	/**
@@ -33,11 +35,13 @@ final class ApiPanel implements IBarPanel
 	 */
 	public function getPanel(): string
 	{
+		// phpcs:disable
 		ob_start();
 		$schema = $this->schema;
 		require __DIR__ . '/templates/panel.phtml';
 
 		return (string) ob_get_clean();
+		// phpcs:enable
 	}
 
 }
